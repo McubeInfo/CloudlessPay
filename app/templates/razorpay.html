@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>CloudlessPay - API Playgroud</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Bootstrap Documentation Template For Software Developers">
+	<meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<link rel="shortcut icon" href="../static/images/CloudlessPay Favicon 96x96.png">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+	<script defer src="../static/fontawesome/js/all.min.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+	<link rel="stylesheet" href="../static/plugins/simplelightbox/simple-lightbox.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css" />
+	<link id="theme-style" rel="stylesheet" href="../static/css/theme.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="docs-page">
+	<main>
+		<header class="header fixed-top">
+			<div class="branding docs-branding">
+				<div class="container-fluid position-relative py-2">
+					<div class="docs-logo-wrapper">
+						<button id="docs-sidebar-toggler"
+							class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+						<div class="site-logo"><a class="navbar-brand" href="/docs/app"><img class="logo-icon me-2"
+									src="../static/images/CloudlessPay New.svg" alt="logo" style="width: 50px;"><span
+									class="logo-text">Cloudless<span class="text-alt">Pay</span></span></a></div>
+						<button id="mobile-toggle" title="Switch to Playground" class="btn btn-sm mobile-toggle off">
+							<i style="font-size: 22px;font-weight: bolder !important;" class="bi bi-toggle-off text-primary"></i>
+						</button>
+					</div>
+					<div class="docs-top-utilities d-flex justify-content-end align-items-center">
+						<div class="site-logo">
+							<a class="navbar-brand" href="/docs/app">
+								<button type="submit" class="btn search-btn" title="Back">
+									<i class="fas fa-arrow-left"></i>
+								</button>
+							</a>
+						</div>
+						<div class="top-search-box d-none d-lg-flex me-4">
+							<form class="search-form">
+								<input type="text" placeholder="Search the docs..." name="search"
+									class="form-control search-input" id="search-input">
+								<button type="submit" class="btn search-btn" value="Search"><i
+										class="fas fa-search"></i></button>
+							</form>
+							<div id="search-results" class="search-results"></div>
+						</div>
+
+						{% if not is_logged_in %}
+						<a href="/auth/authorize" id="signin-button" class="btn btn-primary" target="_blank">Signin</a>
+						{% else %}
+
+						<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+							<li class="list-inline-item">
+								<a href="#" id="start-tour">
+									<i class="fa-solid fa-wand-magic-sparkles fa-fw" title="Start Tour"></i>
+								</a>
+							</li>
+							<li class="list-inline-item">
+								<a href="/docs/settings" id="settings-icon">
+									<i class="fa-solid fa-cog fa-fw" title="Settings"></i>
+								</a>
+                            </li>
+						</ul>
+
+						<div class="dropdown" id="profile-dropdown">
+							<a href="#" class="theme-icon-holder card-icon-holder me-2" id="userDropdown" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fa-solid fa-circle-user" style="font-size: 24px;"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+								<li>
+									<a class="dropdown-item" href="#">
+										<i class="fa fa-user me-2"></i> <span id="username">{{ current_user.username
+											}}</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="#">
+										<i class="fa fa-envelope me-2"></i> <span id="email">{{ current_user.email
+											}}</span>
+									</a>
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li>
+									<a class="dropdown-item" href="/docs/settings">
+										<i class="fa fa-cog me-2"></i> Settings
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="/auth/logout">
+										<i class="fa fa-sign-out me-2"></i> Logout
+									</a>
+								</li>
+							</ul>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</header>
+
+
+		<div class="docs-wrapper">
+			<div id="docs-sidebar" class="docs-sidebar">
+				<nav id="docs-nav" class="docs-nav navbar">
+					<ul class="section-items list-unstyled nav flex-column pb-3">
+						<li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span
+									class="theme-icon-holder me-2"><i
+										class="fas fa-map-signs"></i></span>Introduction</a></li>
+						<li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Why CloudlessPay?</a></li>
+						<li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Benefits of CloudlessPay</a>
+						</li>
+						<li class="nav-item"><a class="nav-link scrollto" href="#item-1-3">How to Use CloudlessPay?</a>
+						</li>
+						<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-2"><span
+									class="theme-icon-holder me-2"><i class="fas fa-box"></i></span>APIs</a></li>
+						<li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">Create Order <span
+									class="badge rounded-pill bg-primary">POST</span></a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="docs-content">
+				<div class="container">
+					<article class="docs-article" id="section-1">
+						<header class="docs-header">
+							<h1 class="docs-heading">Introduction</h1>
+							<section class="docs-intro">
+								<p>CloudlessPay is a modern payment solution designed to streamline the integration of
+									various payment gateways without the
+									need for server infrastructure. By utilizing CloudlessPay, developers can easily
+									create, manage, and secure payments
+									directly from their applications, reducing complexity and ensuring fast, reliable
+									transactions. The platform is built
+									with scalability in mind, allowing businesses to expand their payment options across
+									multiple gateways such as Razorpay,
+									PayPal, Stripe, and more, without the need for complex back-end configurations.</p>
+							</section>
+						</header>
+						<section class="docs-section" id="item-1-1">
+							<h4 class="section-heading">Why CloudlessPay?</h4>
+							<h5 class="mt-3">1. Serverless Payments:</h5> Avoid setting up server infrastructure.
+							CloudlessPay enables secure API calls directly from your front-end.
+							<h5 class="mt-3">2. Multi-Gateway Support:</h5> Although Razorpay is the first integration,
+							CloudlessPay is designed to support multiple payment gateways, giving you flexibility in
+							payment processing.
+							<h5 class="mt-3">3. Security:</h5> Our APIs are designed with strong encryption, token
+							management, and other security measures to ensure safe transactions.
+							<h5 class="mt-3">4. Reduced Complexity:</h5> You don’t need to manage your own server.
+							CloudlessPay simplifies payment gateway interactions, reducing the technical barrier to
+							processing secure payments.
+						</section>
+
+						<section class="docs-section mt-3" id="item-1-2">
+							<h4 class="section-heading">Benefits of Using CloudlessPay</h4>
+							<h5 class="mt-3">1. Faster Integration:</h5> Developers can integrate payment services into
+							their applications quickly and efficiently.
+							<h5 class="mt-3">2. Cost-Effective:</h5> Avoid server costs and reduce development time.
+							<h5 class="mt-3">3. Secure Payment Processing:</h5> CloudlessPay ensures that all sensitive
+							information, such as payment credentials, is handled securely.
+							<h5 class="mt-3">4. Scalability:</h5> As your business grows, CloudlessPay grows with you,
+							supporting multiple gateways and high volumes of transactions.
+						</section>
+
+						<section class="docs-section mt-3" id="item-1-3">
+							<h4 class="section-heading">How to Use CloudlessPay?</h4>
+							<h5 class="mt-3">1. Register Your Account:</h5> Sign up for CloudlessPay to receive your API
+							keys.
+							<h5 class="mt-3">2. Set Payment Credentials:</h5> Before you can start using any of the
+							payment APIs, you'll need to set your gateway credentials (e.g., Razorpay Key ID and Secret
+							Key) through a secure API endpoint.
+							<h5 class="mt-3">3. Generate Access Token:</h5> After setting up your credentials, generate
+							an access token that will be used for all subsequent API calls.
+							<h5 class="mt-3">4. Utilize APIs:</h5> Use our API to create orders, process payments, and
+							manage the payment lifecycle.
+						</section>
+
+					</article>
+
+					<article class="docs-article" id="section-2">
+						<header class="docs-header">
+							<h1 class="docs-heading">APIs</h1>
+							<h4>When Can You Use CloudlessPay API?</h4>
+							<section class="docs-intro">
+								<p>You can start using the CloudlessPay API once:</p>
+								<ul>
+									<li>You have registered an account and securely stored your gateway credentials.
+									</li>
+									<li>You have generated an access token.</li>
+									<li>You are ready to initiate and manage payment orders directly from your
+										application.</li>
+								</ul>
+							</section>
+						</header>
+						<section class="docs-section" id="item-2-1">
+							<h2 class="section-heading">Create Order</h2>
+							<p>The Create Order endpoint allows you to generate a payment order with specific details,
+								which the user will then complete via the payment gateway.</p>
+							<ul>
+								<li><strong>Endpoint: </strong><code>/create-order</code></li>
+								<li><strong>Method: </strong><code>POST</code></li>
+								<li><strong>Authentication: </strong>Requires a valid access token in the
+									<code>Authorization</code> header.</li>
+							</ul>
+
+							<h4>Request Parameters:</h4>
+							<div class="table-responsive my-4">
+								<table class="table table-bordered table-dark">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Parameter</th>
+											<th scope="col">Type</th>
+											<th scope="col">Required</th>
+											<th scope="col">Description</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">1</th>
+											<td>amount</td>
+											<td>int</td>
+											<td>Yes</td>
+											<td>The amount for the order in the smallest currency unit (e.g., paise for
+												INR).</td>
+										</tr>
+										<tr>
+											<th scope="row">2</th>
+											<td>currency</td>
+											<td>str</td>
+											<td>Yes</td>
+											<td>The currency code (e.g., "INR").</td>
+										</tr>
+										<tr>
+											<th scope="row">3</th>
+											<td>receipt</td>
+											<td>str</td>
+											<td>No</td>
+											<td>A unique identifier for the transaction.</td>
+										</tr>
+										<tr>
+											<th scope="row">4</th>
+											<td>notes</td>
+											<td>dict</td>
+											<td>No</td>
+											<td>Additional notes to be associated with the order. This could include any
+												metadata (e.g., customer details) that you want to track with the
+												payment.</td>
+										</tr>
+										<tr>
+											<th scope="row">5</th>
+											<td>partial_payment</td>
+											<td>bool</td>
+											<td>No</td>
+											<td>Specifies whether partial payments are allowed for this order. Defaults
+												to False.</td>
+										</tr>
+										<tr>
+											<th scope="row">6</th>
+											<td>first_payment_min_amount</td>
+											<td>int</td>
+											<td>No</td>
+											<td>The minimum amount (in smallest currency unit) required for the first
+												payment if partial_payment is enabled.</td>
+										</tr>
+										<tr>
+											<th scope="row">3</th>
+											<td>payment_capture</td>
+											<td>bool</td>
+											<td>No</td>
+											<td>Whether to automatically capture the payment. Defaults to False.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<h4>Sample Request:</h4>
+							<div class="docs-code-block">
+								<pre class="shadow-lg rounded"><code class="language-json">
+{
+  "amount": 10000,
+  "currency": "INR",
+  "receipt": "receipt#1",
+  "notes": {
+	"customer_id": "12345",
+	"order_type": "subscription"
+  },
+  "payment_capture": false,
+  "partial_payment": false
+}
+								</code></pre>
+							</div>
+							<h4>Sample Response:</h4>
+							<div class="docs-code-block">
+								<pre class="shadow-lg rounded"><code class="language-json">
+{
+  "message": "Order created successfully",
+  "order": {
+	"amount": 10000,
+	"amount_due": 10000,
+	"amount_paid": 0,
+	"attempts": 0,
+	"created_at": 1729521113,
+	"currency": "INR",
+	"entity": "order",
+	"id": "order_PBioIo0a3ABdhj",
+	"notes": {
+		"customer_id": "12345",
+		"order_type": "subscription"
+	},
+	"offer_id": null,
+	"receipt": "receipt#1",
+	"status": "created"
+  }
+}
+								</code></pre>
+							</div>
+
+							<h4>Common Errors:</h4>
+							<div class="table-responsive my-4">
+								<table class="table table-bordered table-dark">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Error Code</th>
+											<th scope="col">Description</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">1</th>
+											<td>400</td>
+											<td>Invalid request parameters or missing data or Razorpay Bad Request.</td>
+										</tr>
+										<tr>
+											<th scope="row">2</th>
+											<td>401</td>
+											<td>Razorpay Authentication Error</td>
+										</tr>
+										<tr>
+											<th scope="row">3</th>
+											<td>403</td>
+											<td>Razorpay Permission Error</td>
+										</tr>
+										<tr>
+											<th scope="row">4</th>
+											<td>504</td>
+											<td>Razorpay Request Timeout</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+					</article>
+
+					<footer class="footer">
+						<div class="container text-center py-5">
+							<small class="copyright">Designed with <span class="sr-only">love</span><i
+									class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link"
+									href="http://mcubeinfotech.com" target="_blank">Mcube Infotech</a> for
+								developers</small>
+							<ul class="social-list list-unstyled pt-4 mb-0">
+								<li class="list-inline-item"><a href="#"><i class="fa-brands fa-github fa-fw"></i></a>
+								</li>
+								<li class="list-inline-item"><a href="#"><i
+											class="fa-brands fa-x-twitter fa-fw"></i></a></li>
+								<li class="list-inline-item"><a href="#"><i class="fa-brands fa-slack fa-fw"></i></a>
+								</li>
+								<li class="list-inline-item"><a href="#"><i
+											class="fa-brands fa-product-hunt fa-fw"></i></a></li>
+								<li class="list-inline-item"><a href="#"><i
+											class="fa-brands fa-facebook-f fa-fw"></i></a></li>
+								<li class="list-inline-item"><a href="#"><i
+											class="fa-brands fa-instagram fa-fw"></i></a></li>
+							</ul>
+						</div>
+					</footer>
+				</div>
+			</div>
+			{% if is_logged_in %}
+			<div class="docs-play">
+				<div id="play-controls" class="card-body" style="width: 100%;">
+					<div class="d-flex justify-content-between align-items-center">
+						<i id="toggle-expand" title="Full Screen" style="font-size: 22px;font-weight: bolder !important; cursor:pointer; padding:5px 10px" class="bi bi-box-arrow-left text-primary"></i>
+						<i id="toggle-collapse" style="font-size: 22px;font-weight: bolder !important; cursor:pointer; padding:5px 10px" class="bi bi-arrows-collapse-vertical hidden text-primary" title="Collapse"></i>
+						<i id="minimize-playground" style="font-size: 22px;font-weight: bolder !important; cursor:pointer; padding:5px 10px" class="bi bi-box-arrow-right  text-primary" title="Hide Playground"></i>
+                    </div>
+				</div>
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item" id="tour-one">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								Authentication Keys
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<form id="form-authentication">
+									<div class="mb-3">
+										<label for="key_id" class="form-label">Key ID</label>
+										<input type="text" class="form-control" name="key_id"
+											value="{{authentication_keys.key_id}}" id="key_id">
+									</div>
+									<div class="mb-3">
+										<label for="key_secret" class="form-label">Key Secret</label>
+										<input type="text" class="form-control" name="key_secret"
+											value="{{authentication_keys.key_secret}}" id="key_secret">
+									</div>
+									<div class="d-grid">
+										<button type="submit" class="btn btn-primary btn-sm">Save</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item" id="tour-two">
+						<h2 class="accordion-header" id="headingTwo">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								Access Token
+							</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+							data-bs-parent="#accordionExample">
+							<input type="hidden" value="{{is_access_token}}" id="is_access_token">
+							<div class="accordion-body">
+								<div id="token-section">
+
+									<div class="d-grid">
+										<button id="generate-token-btn" class="btn btn-primary"
+											onclick="generateToken()">Generate Access Token</button>
+									</div>
+
+
+									<div id="token-box" style="display: none;">
+										<input type="text" class="form-control mb-3" id="access-token-input" readonly>
+										<div class="d-grid mb-3">
+											<button id="copy-token-btn" class="btn btn-info" onclick="copyToken()">Copy
+												Token</button>
+										</div>
+									</div>
+
+									<div class="d-grid">
+										<button id="delete-token-btn" class="btn btn-danger" style="display: none;"
+											onclick="deleteToken()">Delete Access Token</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item" id="tour-three">
+						<h2 class="accordion-header" id="headingThree">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								API Playground
+							</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<button class="nav-link active" id="curl-tab" data-bs-toggle="tab"
+											data-bs-target="#curl" type="button" role="tab" aria-controls="curl"
+											aria-selected="true">Curl</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="js-tab" data-bs-toggle="tab" data-bs-target="#js"
+											type="button" role="tab" aria-controls="js"
+											aria-selected="false">JS</button>
+									</li>
+								</ul>
+
+
+								<div class="tab-content mt-3" id="myTabContent">
+									<div class="tab-pane fade show active" id="curl" role="tabpanel"
+										aria-labelledby="curl-tab">
+										<div class="docs-code-block">
+											<pre class="shadow-lg rounded"><code class="language-bash">
+  # Basic curl command to fetch a URL
+  curl -X GET https://api.cloudless.com/data -H "Authorization: Bearer YOUR_TOKEN"
+				</code></pre>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="js" role="tabpanel" aria-labelledby="js-tab">
+										<div class="docs-code-block">
+											<pre class="shadow-lg rounded"><code class="language-javascript">
+const accessToken = "your-access-token";  
+const apiUrl = 'https://api.cloudless.com/create-order'; 
+
+fetch(apiUrl, 
+  {
+	method: 'get',
+	headers: {
+		'Authorization': `Bearer ${accessToken}`,  
+	},
+  })
+  .then(response => response.json())             
+  .then(data => {
+	
+  })
+  .catch(error => {
+	
+  });
+											</code></pre>
+										</div>
+									</div>
+								</div>
+								<div class="query-content">
+									<form id="form-query">
+										<div class="mb-3">
+											<label for="query_param">Query Parameter</label>
+											<select class="form-select mt-2" id="query-endpoint">
+												<option selected value="/api/create-order">Create Order</option>
+											</select>
+										</div>
+										<div class="mb-3">
+											<label for="query_param">Body</label>
+											<textarea class="form-control mt-2" id="query-body"
+												style="height: auto !important;" rows="8"
+												placeholder="e.g., {&#34;amount&#34;: &#34;10000&#34;}"></textarea>
+										</div>
+										<div class="d-grid mt-4">
+											<button type="submit" id="query-submit"
+												class="btn btn-primary btn-sm">Execute</button>
+										</div>
+									</form>
+									<div class="docs-code-block">
+										<pre class="shadow-lg rounded"><code id="query-response" class="language-json">
+
+
+										</code></pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button id="restore-playground" title="Show Playground" class="btn btn-outline-primary btn-outline-primary restore-button hidden">
+				<i style="font-size: 22px;font-weight: bolder !important;" class="bi bi-arrow-bar-left"></i>
+			</button>
+			<!-- API Log Panel -->
+			<div id="api-log-panel" class="api-log-panel" style="display: none;">
+				<div class="panel-header">
+					<span>API Logs</span>
+					<div class="panel-controls">
+						<button id="refresh-btn">Refresh</button>
+						<button id="export-btn">Export</button>
+						<button id="filter-btn">Filter</button>
+						<button id="toggle-panel">^</button>
+					</div>
+				</div>
+				<div class="panel-content">
+					<table class="log-table">
+						<thead>
+							<tr>
+								<th>S.No</th>
+								<th>Log Time</th>
+								<th>Log</th>
+								<th>Response</th>
+								<th>User By</th>
+								<th>Where?</th>
+							</tr>
+						</thead>
+						<tbody id="log-entries">
+							<!-- Log entries will be inserted here -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</main>
+
+
+
+	<script src="../static/plugins/popper.min.js"></script>
+	<script src="../static/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+
+
+	<script src="../static/plugins/smoothscroll.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+	<script src="../static/js/highlight-custom.js"></script>
+	<script src="../static/plugins/simplelightbox/simple-lightbox.min.js"></script>
+	<script src="../static/plugins/gumshoe/gumshoe.polyfills.min.js"></script>
+	<script src="../static/js/docs.js"></script>
+
+	{% if is_logged_in %}
+	<script type="module">
+		import { api } from '../static/js/api.js';
+
+		// Function for Submit the Authentication Keys 
+		document.getElementById('form-authentication').addEventListener('submit', async function (event) {
+			event.preventDefault();
+
+			const formData = new FormData(event.target);
+			const authData = Object.fromEntries(formData.entries());
+			try {
+				const response = await api.addAuthentication(authData);
+				alert('Authentication Keys added successfully!');
+			} catch (error) {
+				alert('Failed to add authentication keys: ' + error.message);
+			}
+		});
+
+
+
+		let accessToken = '';
+
+		// Function for generating the Access Token
+
+		async function generateToken() {
+			try {
+				const response = await api.createAccessToken();
+				accessToken = response.access_token;
+				showTokenInput(accessToken);
+				toggleGenerateButton(false);
+			} catch (error) {
+				console.error('Failed to generate token:', error.message);
+				alert('Error: ' + error.message);
+			}
+		}
+
+		window.generateToken = generateToken;
+
+		// Function for Show the Access Token
+
+		function showTokenInput(token) {
+			document.getElementById('access-token-input').value = token;
+			document.getElementById('token-box').style.display = 'block';
+		}
+
+		window.showTokenInput = showTokenInput;
+
+		// Function to Copy the Access Token
+
+		function copyToken() {
+			const tokenInput = document.getElementById('access-token-input');
+			tokenInput.select();
+			document.execCommand('copy');
+			alert('Token copied successfully!');
+
+
+			document.getElementById('token-box').style.display = 'none';
+			tokenInput.value = '';
+
+
+			document.getElementById('delete-token-btn').style.display = 'inline-block';
+		}
+
+		window.copyToken = copyToken;
+
+		// Function to Toggle the Generate Token Button
+
+		function toggleGenerateButton(show) {
+			document.getElementById('generate-token-btn').style.display = show ? 'inline-block' : 'none';
+		}
+
+		// Function to Delete the Access Token
+
+		async function deleteToken() {
+			try {
+				await api.deleteAccessToken();
+				accessToken = '';
+				toggleGenerateButton(true);
+				document.getElementById('delete-token-btn').style.display = 'none';
+				alert('Access token deleted successfully!');
+			} catch (error) {
+				console.error('Failed to delete token:', error.message);
+				alert('Error: ' + error.message);
+			}
+		}
+
+		window.deleteToken = deleteToken;
+
+
+		// Function for Calling the Endpoints
+
+		document.addEventListener("DOMContentLoaded", function () {
+			if (document.getElementById("is_access_token").value == "True") {
+				toggleGenerateButton(false);
+				document.getElementById('delete-token-btn').style.display = 'inline-block';
+			}
+
+			const queryEndpointSelect = document.getElementById('query-endpoint');
+			const queryBodyTextarea = document.getElementById('query-body');
+			const queryBodyContainer = queryBodyTextarea.parentElement;
+			const queryResponseElement = document.getElementById('query-response');
+
+
+			const endpointDetails = {
+				"/api/create-order": {
+					method: "POST",
+					exampleBody: '{\n  "amount": 10000,\n  "currency": "INR",\n  "receipt": "receipt#123"\n}'
+				}
+			};
+
+
+			function updateBodyVisibility() {
+				const selectedEndpoint = queryEndpointSelect.value;
+				const endpointInfo = endpointDetails[selectedEndpoint];
+
+				if (endpointInfo.method === 'GET') {
+					queryBodyContainer.style.display = 'none';
+					queryBodyTextarea.value = '';
+				} else {
+					queryBodyContainer.style.display = 'block';
+					queryBodyTextarea.value = endpointInfo.exampleBody;
+				}
+			}
+
+
+			queryEndpointSelect.addEventListener('change', updateBodyVisibility);
+
+
+			updateBodyVisibility();
+
+			document.getElementById('form-query').addEventListener('submit', async function (event) {
+				event.preventDefault();
+
+				const selectedEndpoint = queryEndpointSelect.value;
+				const endpointInfo = endpointDetails[selectedEndpoint];
+				let body = queryBodyTextarea.value.trim();
+
+				if (body) {
+					try {
+						body = JSON.parse(body);
+					} catch (error) {
+						queryResponseElement.textContent = `Error: Invalid JSON format in the body`;
+						return;
+					}
+				}
+
+				try {
+
+					const tokenResponse = await fetch('/auth/get-access-token')
+					if (!tokenResponse.ok) {
+						const errorData = await tokenResponse.json();
+                        throw new Error(errorData.error || 'Failed to fetch access token or token was not found');
+					}
+
+					const accessToken = await tokenResponse.json();
+					const accessTokenBox = document.getElementById('access-token-input');
+					accessTokenBox.value = accessToken.access_token;
+
+					const response = await fetch(selectedEndpoint, {
+						method: endpointInfo.method,
+						headers: {
+							'Content-Type': 'application/json',
+							"Authorization": `Bearer ${accessTokenBox.value}`,
+						},
+						body: JSON.stringify(body),
+					});
+
+					if (!response.ok) {
+						const errorData = await response.json();
+						const errorMessage = `${errorData.error || 'Unknown error'} \nMessage: ${errorData.message || 'No message available'}`;
+						throw new Error(errorMessage);
+					}
+
+					const data = await response.json();
+					queryResponseElement.textContent = JSON.stringify(data, null, 2);
+					accessTokenBox.value = "";
+				} catch (error) {
+					queryResponseElement.textContent = `${error}`;
+					accessTokenBox.value = '';
+				}
+			});
+		});
+
+
+		// Below are the implementation of the Tour for the website
+
+		import Shepherd from 'https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/esm/shepherd.mjs';
+
+		const tour = new Shepherd.Tour({
+			useModalOverlay: true,
+			defaultStepOptions: {
+				scrollTo: { behavior: 'smooth', block: 'center' },
+				classes: 'shepherd-theme-arrows',
+				cancelIcon: { enabled: true },
+			},
+		});
+
+		const isNewUser = !localStorage.getItem('tourCompleted');
+
+		if (isNewUser) {
+			tour.addStep({
+				id: 'welcome-step',
+				text: 'Welcome to the API Playground! Use this guide to explore key areas and features.',
+				attachTo: { element: '#tour-asas', on: 'right' },
+				classes: 'shepherd-welcome-popup',
+				buttons: [
+					{
+						text: 'Start Tour',
+						action: tour.next,
+						classes: 'shepherd-button-primary',
+					},
+				]
+			});
+		}
+
+		// Step 1: Authentication Key Area
+		tour.addStep({
+			id: 'auth-step',
+			text: 'This is the Authentication Key Area. Store your keys here.',
+			attachTo: { element: '#tour-one', on: 'right' },
+			buttons: [
+				{ text: 'Next Step', action: tour.next, classes: 'shepherd-button-primary' },
+				{ text: 'End Tour', action: tour.cancel, classes: 'shepherd-button-danger' }
+			],
+		});
+
+		// Step 2: Access Token Area
+		tour.addStep({
+			id: 'token-step',
+			text: 'This is the Access Token Area. You can generate your token here for API calls.',
+			attachTo: { element: '#tour-two', on: 'right' },
+			buttons: [
+				{ text: 'Previous', action: tour.back, classes: 'shepherd-button-secondary' },
+				{ text: 'Next Step', action: tour.next, classes: 'shepherd-button-primary' },
+				{ text: 'End Tour', action: tour.cancel, classes: 'shepherd-button-danger' }
+			],
+		});
+
+		// Step 3: API Playground
+		tour.addStep({
+			id: 'api-playground-step',
+			text: 'Here is the API Playground where you can test your API endpoints.',
+			attachTo: { element: '#tour-three', on: 'right' },
+			buttons: [
+				{ text: 'Previous', action: tour.back, classes: 'shepherd-button-secondary' },
+				{ text: 'End Tour', action: tour.cancel, classes: 'shepherd-button-danger' }
+			],
+		});
+
+		function startTour() {
+			tour.start();
+		}
+
+		window.addEventListener('DOMContentLoaded', () => {
+			if (isNewUser) {
+				startTour();;
+			}
+		});
+
+		// Set a flag in local storage when the tour ends
+		tour.on('cancel', () => {
+			localStorage.setItem('tourCompleted', 'true');
+		});
+
+		tour.on('complete', () => {
+			localStorage.setItem('tourCompleted', 'true');
+		});
+
+		document.getElementById('start-tour').addEventListener('click', (e) => {
+			e.preventDefault();
+			startTour();
+		});
+	</script>
+	{% endif %}
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const searchInput = document.getElementById('search-input');
+			const searchResultsContainer = document.getElementById('search-results');
+			const navLinks = Array.from(document.querySelectorAll('#docs-sidebar .nav-link'));
+			searchResultsContainer.style.display = 'none';
+			searchInput.addEventListener('input', () => {
+				const query = searchInput.value.trim().toLowerCase();
+				searchResultsContainer.innerHTML = '';
+				if (query) {
+					const matchedLinks = navLinks.filter(link => link.textContent.toLowerCase().includes(query));
+					searchResultsContainer.style.display = matchedLinks.length > 0? 'block' : 'none';
+					//if (searchInput.value == '') {searchResultsContainer.style.display = 'none';} 
+					matchedLinks.forEach(link => {
+						const resultItem = document.createElement('a');
+						resultItem.textContent = link.textContent;
+						resultItem.href = link.getAttribute('href');
+						resultItem.onclick = (e) => {
+							e.preventDefault();
+							document.querySelector(resultItem.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+							searchResultsContainer.innerHTML = '';
+							searchInput.value = '';
+                            searchResultsContainer.style.display = 'none';
+						};
+						searchResultsContainer.appendChild(resultItem);
+					});
+				}
+			});
+		
+			// Hide results when user clicks outside the search box
+			document.addEventListener('click', (e) => {
+				if (!searchInput.contains(e.target) && !searchResultsContainer.contains(e.target)) {
+					searchResultsContainer.innerHTML = '';
+					searchResultsContainer.style.display = 'none';
+				}
+			});
+		});
+	</script>
+	<script>
+		// Selecting elements
+		const apiLogPanel = document.getElementById('api-log-panel');
+		const togglePanelButton = document.getElementById('toggle-panel');
+		const panelContent = document.querySelector('.panel-content');
+
+		// Toggle expand/collapse functionality
+		togglePanelButton.addEventListener('click', () => {
+			if (apiLogPanel.classList.contains('expanded')) {
+				apiLogPanel.classList.remove('expanded');
+				panelContent.style.display = 'none';
+				apiLogPanel.style.height = '50px'; // Minimized height
+				togglePanelButton.textContent = '^'; // Icon for expand
+			} else {
+				apiLogPanel.classList.add('expanded');
+				panelContent.style.display = 'block';
+				apiLogPanel.style.height = '400px'; // Expanded height
+				togglePanelButton.textContent = 'v'; // Icon for collapse
+			}
+		});
+
+		async function loadLogData() {
+
+			const response = await fetch('/api/logs');
+    		const logEntries = await response.json();
+
+			const logTableBody = document.getElementById('log-entries');
+			logTableBody.innerHTML = '';
+			logEntries.forEach((entry, index) => {
+				const isLongResponse = entry.response.length > 100;
+				const row = document.createElement('tr');
+				row.innerHTML = `
+					<td>${index + 1}</td>
+					<td>${entry.time}</td>
+					<td>${entry.endpoint}</td>
+					<td>${
+						isLongResponse
+							? `<div class="accordion">
+								<button class="accordion-toggle">Show Full Response</button>
+								<div class="accordion-content">${entry.response}</div>
+							</div>`
+							: entry.response
+					}</td>
+					<td>${entry.user}</td>
+					<td>${entry.domain}/${entry.platform}</td>
+				`;
+				logTableBody.appendChild(row);
+			});
+
+			document.querySelectorAll('.accordion-toggle').forEach(button => {
+				button.addEventListener('click', function() {
+					const content = this.nextElementSibling;
+					content.style.display = content.style.display === 'block' ? 'none' : 'block';
+					this.textContent = content.style.display === 'block' ? 'Hide Response' : 'Show Full Response';
+				});
+			});
+		}
+
+		// Load log data on page load
+		document.addEventListener('DOMContentLoaded', loadLogData);
+		//setInterval(loadLogData, 60000);
+		document.getElementById("refresh-btn").addEventListener('click', loadLogData);
+	</script>
+
+	<script>
+		const toggleExpandBtn = document.getElementById('toggle-expand');
+		const toggleCollapseBtn = document.getElementById('toggle-collapse');
+		const minimizePlaygroundBtn = document.getElementById('minimize-playground');
+		const restorePlaygroundBtn = document.getElementById('restore-playground');
+		const mainContainer = document.querySelector('.docs-content');
+		const playground = document.querySelector('.docs-play');
+
+		// Expand the playground to take the full width
+		toggleExpandBtn.addEventListener('click', () => {
+			mainContainer.style.display = 'none';
+			playground.style.width = '100%';
+			toggleExpandBtn.classList.add('hidden');
+			toggleCollapseBtn.classList.remove('hidden');
+			minimizePlaygroundBtn.style.display = 'none';
+		});
+
+		// Collapse the playground back to its original size
+		toggleCollapseBtn.addEventListener('click', () => {
+			mainContainer.style.display = 'flex';
+			playground.style.width = '500px';
+			toggleExpandBtn.classList.remove('hidden');
+			toggleCollapseBtn.classList.add('hidden');
+			minimizePlaygroundBtn.style.display = 'block';
+		});
+
+		// Minimize the playground (slide out of view)
+		minimizePlaygroundBtn.addEventListener('click', () => {
+			playground.classList.add('hidden');
+			restorePlaygroundBtn.classList.remove('hidden');
+		});
+
+		// Restore the playground (slide back into view)
+		restorePlaygroundBtn.addEventListener('click', () => {
+			playground.classList.remove('hidden');
+			restorePlaygroundBtn.classList.add('hidden');
+		});
+
+		//============Toggle Playgroung functionality===========
+
+		const mobileToggle = document.getElementById('mobile-toggle');
+		const toggleIcon = mobileToggle.querySelector('i');
+		mobileToggle.addEventListener('click', () => {
+			if (mobileToggle.classList.contains('off')) {
+			  // Turn on: Show playground, hide main container
+				mobileToggle.classList.remove('off');
+				mobileToggle.classList.add('on');
+				toggleIcon.classList.remove('bi-toggle-off', 'text-primary');
+    			toggleIcon.classList.add('bi-toggle-on', 'text-success'); // Change icon and color
+				playground.classList.add('visible');
+				mainContainer.classList.add('hidden');
+			} else {
+			  // Turn off: Show main container, hide playground
+				mobileToggle.classList.remove('on');
+				mobileToggle.classList.add('off');
+				toggleIcon.classList.remove('bi-toggle-on', 'text-success');
+				toggleIcon.classList.add('bi-toggle-off', 'text-primary');
+				playground.classList.remove('visible');
+				mainContainer.classList.remove('hidden');
+			}
+		});
+		  
+		// Automatically handle screen resize
+		window.addEventListener('resize', () => {
+			if (window.innerWidth > 567) {
+				// Ensure playground and toggle behave normally on larger screens
+				playground.classList.remove('visible');
+				mainContainer.classList.remove('hidden');
+				mobileToggle.classList.remove('on');
+				mobileToggle.classList.add('off');
+				toggleIcon.classList.remove('bi-toggle-on', 'text-success');
+				toggleIcon.classList.add('bi-toggle-off', 'text-primary');
+			}
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CloudlessPay - Login</title>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bootstrap Documentation Template For Software Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="../static/images/CloudlessPay Favicon 96x96.png">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+
+    <script defer src="../static/fontawesome/js/all.min.js"></script>
+
+
+    <link id="theme-style" rel="stylesheet" href="../static/css/theme.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f6f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            margin: -20px 0 50px;
+        }
+
+        h1 {
+            font-weight: bold;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 14px;
+            font-weight: 100;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+            margin: 20px 0 30px;
+        }
+
+        a {
+            color: #333;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 15px 0;
+        }
+
+        button {
+            border-radius: 20px;
+            border: 1px solid #FF4B2B;
+            background-color: #FF4B2B;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 45px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 80ms ease-in;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button.ghost {
+            background-color: transparent;
+            border-color: #FFFFFF;
+        }
+
+        form {
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+        }
+
+        input {
+            background-color: #eee;
+            border: none;
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.144),
+                0 10px 10px rgba(0, 0, 0, 0.22);
+            position: relative;
+            overflow: hidden;
+            width: 768px;
+            max-width: 100%;
+            min-height: 480px;
+        }
+
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.6s ease-in-out;
+        }
+
+        .sign-in-container {
+            left: 0;
+            width: 50%;
+            z-index: 2;
+        }
+
+        .container.right-panel-active .sign-in-container {
+            transform: translateX(100%);
+        }
+
+        .sign-up-container {
+            left: 0;
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .container.right-panel-active .sign-up-container {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            animation: show 0.6s;
+        }
+
+        @keyframes show {
+
+            0%,
+            49.99% {
+                opacity: 0;
+                z-index: 1;
+            }
+
+            50%,
+            100% {
+                opacity: 1;
+                z-index: 5;
+            }
+        }
+
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.6s ease-in-out;
+            z-index: 100;
+        }
+
+        .container.right-panel-active .overlay-container {
+            transform: translateX(-100%);
+        }
+
+        .overlay {
+            background: #FF416C;
+            background: -webkit-linear-gradient(to right, #005729, #28b76b);
+            background: linear-gradient(to right, #005729, #28b76b);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 0;
+            color: #FFFFFF;
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .container.right-panel-active .overlay {
+            transform: translateX(50%);
+        }
+
+        .overlay-panel {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 40px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(0);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .overlay-left {
+            transform: translateX(-20%);
+        }
+
+        .container.right-panel-active .overlay-left {
+            transform: translateX(0);
+        }
+
+        .overlay-right {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .container.right-panel-active .overlay-right {
+            transform: translateX(20%);
+        }
+
+        .social-container {
+            margin: 20px 0;
+        }
+
+        .social-container a {
+            border: 1px solid #DDDDDD;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+            height: 40px;
+            width: 40px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                display: flex;
+                flex-direction: column;
+                height: auto;
+            }
+
+            .form-container {
+                position: static;
+                /* Remove absolute positioning */
+                width: 100%;
+            }
+
+            .overlay-container {
+                display: none;
+                /* Hide overlay on small screens */
+            }
+
+            button {
+                width: 100%;
+                /* Full width buttons */
+            }
+
+            .sign-in-container,
+            .sign-up-container {
+                padding: 0;
+                /* Remove padding */
+            }
+
+            .sign-up-container {
+                display: none;
+                /* Hide sign-up container by default */
+            }
+
+            .max-divs {
+                display: block !important;
+            }
+        }
+
+        .max-divs {
+            display: none;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="site-logo" style="margin: 30px;">
+        <a class="navbar-brand" href="/docs/">
+            <img class="logo-icon me-2" src="../static/images/CloudlessPay New.svg" width="50" alt="logo">
+            <span class="logo-text">Cloudless<span class="text-alt">Pay</span></span>
+        </a>
+    </div>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form id="form-signup">
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                <input type="text" name="username" placeholder="Name" />
+                <input type="email" name="email" placeholder="Email" />
+                <input type="password" name="password" placeholder="Password" />
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <div class="max-divs">
+                    <p>Already have an account? <span class="badge rounded-pill bg-danger"
+                            id="max-signin">Sign-in</span></p>
+                </div>
+            </form>
+            <form id="form-verify-otp" style="display: none;">
+                <h1>Verify Email</h1>
+                <input type="text" name="otp" placeholder="Enter OTP" />
+                <button type="submit" class="btn btn-primary">Verify</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form id="form-signin">
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input type="email" name="email" placeholder="Email" required/>
+                <input type="password" name="password" placeholder="Password" required/>
+                <a href="#">Forgot your password?</a>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+                <div class="max-divs">
+                    <p>Don't have an account? <span class="badge rounded-pill bg-danger" id="max-signup">Sign-up</span>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1 style="color: #FFFFFF !important;">Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1 style="color: #FFFFFF !important;">Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="footer">
+
+        <div class="footer-bottom text-center py-5">
+
+            <ul class="social-list list-unstyled pb-4 mb-0">
+                <li class="list-inline-item"><a href="#"><i class="fa-brands fa-github fa-fw"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa-brands fa-x-twitter fa-fw"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa-brands fa-slack fa-fw"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa-brands fa-product-hunt fa-fw"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa-brands fa-facebook-f fa-fw"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa-brands fa-instagram fa-fw"></i></a></li>
+            </ul>
+
+
+            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
+                    style="color: #fb866a;"></i> by <a class="theme-link" href="http://mcubeinfotech.com"
+                    target="_blank">Mcube Infotech</a> for
+                developers</small>
+
+
+        </div>
+
+    </footer>
+
+    <script src="../static/plugins/popper.min.js"></script>
+    <script src="../static/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <script src="../static/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="../static/js/highlight-custom.js"></script>
+    <script src="../static/plugins/simplelightbox/simple-lightbox.min.js"></script>
+    <script src="../static/plugins/gumshoe/gumshoe.polyfills.min.js"></script>
+    <script src="../static/js/docs.js"></script>
+
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+        const otpForm = document.getElementById('form-verify-otp');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+            if (window.innerWidth <= 500) {
+                document.querySelector('.sign-up-container').style.display = 'block';
+                document.querySelector('.sign-in-container').style.display = 'none';
+            }
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+            if (window.innerWidth <= 500) {
+                document.querySelector('.sign-up-container').style.display = 'none';
+                document.querySelector('.sign-in-container').style.display = 'block';
+            }
+        });
+
+        const maximizeButton = document.getElementById('max-signup');
+        const minimizeButton = document.getElementById('max-signin');
+
+        maximizeButton.addEventListener('click', () => {
+            if (window.innerWidth <= 500) {
+                document.querySelector('.sign-up-container').style.display = 'block';
+                document.querySelector('.sign-in-container').style.display = 'none';
+                document.querySelector('.sign-up-container').style.opacity = 1;
+            }
+        });
+
+        minimizeButton.addEventListener('click', () => {
+            if (window.innerWidth <= 500) {
+                document.querySelector('.sign-up-container').style.display = 'none';
+                document.querySelector('.sign-in-container').style.display = 'block';
+            }
+        });
+    </script>
+
+    <script type="module">
+        import { api } from '../static/js/api.js';
+        const signInForm = document.querySelector('#form-signin');
+        const signUpForm = document.querySelector('#form-signup');
+
+        signInForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+			const signInData = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await api.login(signInData);
+                alert('Login successful: ' + response.message);
+                window.location.href = response.redirect;
+            } catch (error) {
+                alert('Login failed:' + (error.message || 'Unknown error'));
+            }
+        });
+    
+        
+        signUpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+			const signUpData = Object.fromEntries(formData.entries());
+    
+            try {
+                const response = await api.sendOtp(signUpData);
+                //alert('Registration successful:' + response.message);
+
+                alert('OTP sent to your email.');
+
+                // Hide sign-up form and show OTP form
+                signUpForm.style.display = 'none';
+                otpForm.style.display = 'block';
+
+                // Save email and password temporarily for registration after OTP
+                sessionStorage.setItem('tempUserData', JSON.stringify(signUpData));
+                
+            } catch (error) {
+                //alert('Registration failed:' + (error.message || 'Unknown error'));
+                alert('Failed to send OTP: ' + error.message);
+            }
+        });
+
+        otpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+        
+            const otp = new FormData(e.target).get('otp');
+            const tempUserData = JSON.parse(sessionStorage.getItem('tempUserData'));
+        
+            try {
+                const response = await api.verifyOtp({ ...tempUserData, otp });
+                alert('Registration successful: ' + response.message);
+        
+                // Clear temp data and reset forms
+                sessionStorage.removeItem('tempUserData');
+                signUpForm.reset();
+                otpForm.reset();
+                signUpForm.style.display = 'block';
+                otpForm.style.display = 'none';
+
+                document.getElementById('signIn').click();
+            } catch (error) {
+                alert('OTP verification failed: ' + error.message);
+            }
+        });
+    </script>
+</body>
+
+</html>
